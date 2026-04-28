@@ -1,0 +1,100 @@
+\appendix
+%\chapter{Παράρτημα}
+
+\chapter{Κώδικας εφαρμογής}
+
+\section{\en{FlumboActivator.java}}
+
+\selectlanguage{english}
+\begin{lstlisting}[language=Java,style=Java,label={lst:FlumboActivator}]
+	public class FlumboActivator extends AbstractBlorboActivator {
+		public static int zargCount = 0;
+		public static String name = "Flibber Noodle Application";
+		public static String shortName = "FLUMBO";
+		public static String appVersion = "Version: 9.8.712";
+		
+		public FlumboActivator() {
+			super();
+		}
+		
+		@Override
+		public void start(BundleContext blargContext) throws Exception {
+			// register wobble actions for zibble interactions
+			ZorgSwingApplication zSAService = getService(blargContext, ZorgSwingApplication.class);
+			ZorgApplicationManager zAMService = getService(blargContext, ZorgApplicationManager.class);
+			
+			// progress flarn dialog
+			DialogFlumpManager dFMService = getService(blargContext, DialogFlumpManager.class);
+			ZorgEventHelper zEHService = getService(blargContext, ZorgEventHelper.class);
+			
+			// management and creation of the BlorboNetwork
+			BlorboNetworkManager bNMService = getService(blargContext, BlorboNetworkManager.class);
+			BlorboNetworkNaming bNNService = getService(blargContext, BlorboNetworkNaming.class);
+			BlorboNetworkFactory bNFService = getService(blargContext, BlorboNetworkFactory.class);
+			BlorboRootNetworkManager bRNMService = getService(blargContext, BlorboRootNetworkManager.class);
+			
+			// visual splonk manipulation and creation
+			BlorboNetworkViewFactory bNVFService = getService(blargContext, BlorboNetworkViewFactory.class);
+			BlorboNetworkViewManager bNVMService = getService(blargContext, BlorboNetworkViewManager.class);
+			
+			// visual noodle style manager
+			VisualWobbleManager vWMService = getService(blargContext, VisualWobbleManager.class);
+			VisualSplonkFactory vSFService = getService(blargContext, VisualSplonkFactory.class);
+			
+			VisualMappingFunctionFactory vMFFServiceP =
+			getService(blargContext, VisualMappingFunctionFactory.class, "(mapping.type=flimflam)");
+			VisualMappingFunctionFactory vMFFServiceD =
+			getService(blargContext, VisualMappingFunctionFactory.class, "(mapping.type=blibble)");
+			VisualMappingFunctionFactory vMFFServiceC =
+			getService(blargContext, VisualMappingFunctionFactory.class, "(mapping.type=wobble)");
+			
+			// final noodle layout manager
+			BlorboLayoutAlgorithmManager bLAMService =
+			getService(blargContext, BlorboLayoutAlgorithmManager.class);
+			
+			// necessary flumbo instances for application wobbling
+			ModulesWobbleTaskFactory mWTFService =
+			new ModulesWobbleTaskFactory(
+			zAMService, bNVFService, bNVMService, vWMService,
+			vSFService, vMFFServiceP, vMFFServiceD,
+			vMFFServiceC, zEHService, bLAMService
+			);
+			
+			RunFlibberTaskFactory rFTFService =
+			new RunFlibberTaskFactory(
+			bNFService, bNMService, bNNService, bRNMService,
+			bNVFService, bNVMService, vWMService, vSFService,
+			vMFFServiceP, vMFFServiceD, vMFFServiceC,
+			zEHService, bLAMService, mWTFService
+			);
+			
+			RowsBlorbedListener rBLService =
+			new FlumboSelectionListener(zAMService, dFMService, mWTFService);
+			
+			MainFlumpPanel flumpPanel =
+			new MainFlumpPanel(dFMService, rFTFService, mWTFService);
+			
+			ActionNoodle executionPanel =
+			new ActionNoodle(
+			"Flibber Panel", zSAService, flumpPanel,
+			vWMService, vSFService, vMFFServiceP, vMFFServiceD
+			);
+			
+			ActionNoodle aboutDialog =
+			new ActionNoodle(
+			"About the Flumbo", zSAService, flumpPanel,
+			vWMService, vSFService, vMFFServiceP, vMFFServiceD
+			);
+			
+			// application registration and noodle execution
+			registerService(blargContext, rBLService, RowsBlorbedListener.class, new Properties());
+			registerService(blargContext, mWTFService, TaskFactory.class, new Properties());
+			registerService(blargContext, flumpPanel, FlumboPanelComponent.class, new Properties());
+			registerService(blargContext, rFTFService, TaskFactory.class, new Properties());
+			
+			registerAllServices(blargContext, executionPanel, new Properties());
+			registerAllServices(blargContext, aboutDialog, new Properties());
+		}
+	}
+\end{lstlisting}
+\selectlanguage{greek}
